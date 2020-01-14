@@ -19,9 +19,6 @@ You may assume that the board passed in is valid in the context of a game of Tic
 """
 
 
-import time
-
-
 board = [[2, 0, 1],
          [0, 1, 2],
          [1, 1, 1]]

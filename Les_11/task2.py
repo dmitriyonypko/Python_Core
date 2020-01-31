@@ -27,7 +27,7 @@ class News:
         self.tags = tags
         self.date_news = date_news
     
-    def publication_date(self):
+    def __publication_date(self):
         list_date = [int(item) for item in self.date_news.split(".")]
         
         now = datetime.datetime.now()
@@ -55,7 +55,7 @@ class News:
         # Добавляем заголовок
         result += f'\t{self.heading.center(length_ch1, ch2)}\n'
         # Добавляем дату
-        result += f'\t{self.publication_date()}\n'
+        result += f'\t{self.__publication_date()}\n'
         # Добавляем "_"
         result += f'\t{ch1 * length_ch1}\n\n{self.text}\n\n\t'
         # Добавляем теги

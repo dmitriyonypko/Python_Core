@@ -1,6 +1,8 @@
 """
-Реализовать класс, описывающий новость (заголовок, текст, массив тегов, дата публикации).
-В классе необходимо реализовать один метод print, который выводит всю информацию в таком виде:
+Реализовать класс, описывающий новость
+(заголовок, текст, массив тегов, дата публикации).
+В классе необходимо реализовать один метод print,
+который выводит всю информацию в таком виде:
 _________________________
 ------ LOREM IPSUM ------
 2 days ago
@@ -21,13 +23,13 @@ import datetime
 
 class News:
     
-    def __init__(self, heading, text, tags, date_news):
+    def __init__(self, heading, text, date_news, tags):
         self.heading = heading
         self.text = text
-        self.tags = tags
         self.date_news = date_news
-    
-    def publication_date(self):
+        self.tags = tags
+        
+    def __publication_date(self):
         list_date = [int(item) for item in self.date_news.split(".")]
         
         now = datetime.datetime.now()
@@ -46,29 +48,20 @@ class News:
             self.date_news = datetime.date(list_date[2], list_date[1], list_date[0]).strftime("%d.%m.%Y")
         return self.date_news
     
-    def print_news(self):
+    def __str__(self):
         ch1 = '_'
         ch2 = '-'
         length_ch1 = len(self.heading) + (len(ch2) * 5) * 2
         # Добавляем "_"
-        result = '\t' + ch1 * length_ch1 + '\n'
+        result = '\n' + '_' * 50 + '\n'
+        result += '\t' + ch1 * length_ch1 + '\n'
         # Добавляем заголовок
         result += f'\t{self.heading.center(length_ch1, ch2)}\n'
         # Добавляем дату
-        result += f'\t{self.publication_date()}\n'
+        result += f'\t{self.__publication_date()}\n'
         # Добавляем "_"
         result += f'\t{ch1 * length_ch1}\n\n{self.text}\n\n\t'
         # Добавляем теги
         list_tags = ['#' + item for item in self.tags]
-        result += ' '.join(list_tags)
-        print(result)
-
-
-heading = input("Введите название статьи: ")
-date_news = input("Введите дату публикации в формате(дд.мм.гггг): ")
-tags = input("Введите список тегов: ").split(', ')
-text = input("Введите текст статьи: ")
-
-
-publication = News(heading, text, tags, date_news)
-publication.print_news()
+        result += ' '.join(list_tags) + '\n' + '_' * 50
+        return result

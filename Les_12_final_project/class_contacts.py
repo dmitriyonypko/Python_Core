@@ -69,55 +69,41 @@ class Contact:
             item[0] = str(id_contact + 1)
             id_contact += 1
     
-    def search_contact(self, data_for_search, index_for_search=5):
+    def search_contact(self, data_for_search, index_for_search):
         """Возвращает список с найденным контактом или возвращает пустой список."""
-        self.number_for_print = 1
         self.searched_list = []
-        self.__read_file
+        self.number_for_print = 1
         
-        if index_for_search == 4:
-            index = 3
-        elif type(data_for_search) is int:
-            index = 0
-        elif data_for_search.isdigit():
-            index = 2
-        elif index_for_search == 5:
-            index = 4
-        else:
-            index = 1
+        self.__read_file()
         
         for line in self.body:
-            if index == 0:
-                if int(data_for_search) == int(line[index]):
+            if index_for_search == 0:
+                if data_for_search == line[index_for_search]:
                     self.searched_list.append(line)
-            elif data_for_search.lower() in line[index].lower():
+            elif data_for_search.lower() in line[index_for_search].lower():
                 self.searched_list.append(line)
         
         return self.searched_list
     
     def append_contact(self, name='-', phone_number='0', company='-', email='-'):
         """Добавляем контакт если в справочнике нет имени, телефона, email"""
-        # Не работает проверка!!!!
-        search_name = len(self.search_contact(name))
-        search_number = len(self.search_contact(phone_number))
-        search_email = len(self.search_contact(email, 5))
-        self.searched_list = []
-        self.new_id = len(self.body) + 1
+        search_name = len(self.search_contact(name, 1))
+        search_number = len(self.search_contact(phone_number, 2))
+        search_email = len(self.search_contact(email, 4))
+        new_id = len(self.body) + 1
         
         if search_name and search_number and search_email:
             return False
         else:
             with open(self.file_name, 'a', encoding='utf-8') as file:
-                file.write(f'\n{self.new_id},{name},{phone_number},{company},{email}')
+                file.write(f'\n{new_id},{name},{phone_number},{company},{email}')
             return True
     
     def del_contact(self, id_contact):
         """Удаляет контакт по заданому id."""
-        id_contact = int(id_contact)
+        self.__read_file()
         if id_contact not in range(1, len(self.body) + 1):
             return False
-        
-        self.__read_file()
         
         del self.body[id_contact - 1]
         self.__edit_id(id_contact - 1)
@@ -127,11 +113,9 @@ class Contact:
     
     def edit_contact(self, id_contact, index_for_edit, data):
         """Рудактирует контакт."""
-        if id_contact not in range(1, len(self.body) + 1):
-            return False
         
         # Проверяем не будет ли дублирующих строк в файле. Если будут, вернуть False
-        search_data = self.search_contact(data)
+        search_data = self.search_contact(data, index_for_edit)
         if search_data:
             new_line = []
             new_line.extend(self.body[id_contact - 1])

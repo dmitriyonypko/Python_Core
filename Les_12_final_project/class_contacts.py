@@ -22,7 +22,7 @@ class Contact:
             return f'{self.__table_for_print(self.header, self.body)}'
     
     def __table_for_print(self, header, body):
-        """Делаем из двух списков таблицу для печати."""
+        """Делает из списков self.header и self.body строку для печати."""
         
         list_lines = []
         list_lines.append(header)
@@ -64,7 +64,7 @@ class Contact:
             file.write('\n'.join(self.body))
     
     def __edit_id(self, id_contact):
-        """Пересчитываем id. """
+        """Пересчитываем id."""
         for item in self.body[id_contact:]:
             item[0] = str(id_contact + 1)
             id_contact += 1

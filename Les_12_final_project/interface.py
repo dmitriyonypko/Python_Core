@@ -1,5 +1,5 @@
 """
-[ ] Телефонный справочник.
+Меню для программы "Телефонный справочник."
 Добавление контакта, удаление контакта, редактирование контакта.
 Поиск по имени-фамилии, поиск по номеру, поиск по частично набранному номеру
 """
@@ -28,11 +28,11 @@ while True:
     elif option == 2:
         name = input('Введите имя и фамилию: ')
         number = input('Введите номер телефона: ')
-        company = input('Введите название компании: ')
-        email = input('Введите E-mail: ')
         if not number.isdigit():
             print('\nНекорректный ввод. Номер должен состоять только из цифр!\n')
         else:
+            company = input('Введите название компании: ')
+            email = input('Введите E-mail: ')
             if cont.append_contact(name, number, company, email):
                 print('\nДанные успешно добавлены')
             else:
@@ -51,10 +51,13 @@ while True:
             id_contact = int(input('Введите id контакта: '))
             if cont.search_contact(str(id_contact), 0):
                 data = input('Введите данные: ')
-                if cont.edit_contact(id_contact, index_for_edit, data):
-                    print('\nДанные успешно обновлены')
+                if index_for_edit == 2 and not data.isdigit():
+                    print('\nНекорректный ввод. Номер должен состоять только из цифр!\n')
                 else:
-                    print('\nКонтакт уже есть в справочнике')
+                    if cont.edit_contact(id_contact, index_for_edit, data):
+                        print('\nДанные успешно обновлены')
+                    else:
+                        print('\nКонтакт уже есть в справочнике')
             else:
                 print('\nНекорректно введен id')
     elif option == 5:

@@ -1,5 +1,4 @@
 id,Имя Фамилия,Телефон,Компания,E-mail
 1,Сергей Иванов,08962,Apple,ser@gmail.com
-2,Вадим Петров,08944,Google,vad@gmail.com
-3,Андрей Бебуришвили,089449,Comedy Club,andr@gmail.com
-4,John Smith,sdf,Comedy,ldkjsh@gmail.com
+2,Андрей Бебуришвили,089449,Comedy Club,andr@gmail.com
+3,John Smith,777222,MI6,john006@gmail.com
